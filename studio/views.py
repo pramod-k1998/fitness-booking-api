@@ -14,20 +14,17 @@ def get_classes(request):
 
 @api_view(['POST'])
 def book_class(request):
-    try:
-        class_id = request.data['class_id']
-        fitness_class = Fitness.objects.get(id=class_id)
-    except (KeyError, Fitness.DoesNotExist):
-        return Response({'error':'class not found or ID missing'}, status=400)
-    if fitness_class.available_slots <= 0:
-        return Response({'error':'No slots available'}, status=400)
-
     serializer = BookingSerializer(data=request.data)
     if serializer.is_valid():
-        serializer.save()
+        booking = serializer.save()
+
+        # reduce slots
+        fitness_class = booking.fitness_class
         fitness_class.available_slots -= 1
         fitness_class.save()
-        return Response(serializer.data, status=201)
+
+        return Response({"message": "Booking successful", "data": serializer.data}, status=201)
+    
     return Response(serializer.errors, status=400)
 
 @api_view(['GET'])
