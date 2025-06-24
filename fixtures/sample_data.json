@@ -1,0 +1,22 @@
+[
+  {
+    "model": "studio.fitness",
+    "pk": 1,
+    "fields": {
+      "name": "Yoga",
+      "datetime": "2025-06-26T07:00:00Z",
+      "instructor": "Rina",
+      "available_slots": 10
+    }
+  },
+  {
+    "model": "studio.fitness",
+    "pk": 2,
+    "fields": {
+      "name": "Zumba",
+      "datetime": "2025-06-26T09:00:00Z",
+      "instructor": "Alex",
+      "available_slots": 15
+    }
+  }
+]
