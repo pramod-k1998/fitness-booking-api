@@ -46,10 +46,10 @@ class BookingSerializer(serializers.ModelSerializer):
         if not fitness_class:
             raise serializers.ValidationError("Fitness Class is required.")
 
-        if fitness_class.available_slots <= 0:
-            raise serializers.ValidationError("No slots left for this class.")
-
         if Booking.objects.filter(fitness_class=fitness_class, client_email=client_email).exists():
             raise serializers.ValidationError("You have already booked this class.")
 
+        if fitness_class.available_slots <= 0:
+            raise serializers.ValidationError("No slots left for this class.")
+        
         return data

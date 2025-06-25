@@ -1,0 +1,21 @@
+{% extends "studio/index.html" %}
+{% block content %}
+<h2>Available Classes</h2>
+<div class="row row-cols-1 row-cols-md-2 g-4">
+  {% for cls in classes %}
+    <div class="col">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">{{ cls.name }}</h5>
+          <p class="card-text">
+            Instructor: {{ cls.instructor }}<br>
+            Time: {{ cls.datetime_ist }}<br>
+            Slots: {{ cls.available_slots }}
+          </p>
+          <a href="/book/?class_id={{ cls.id }}" class="btn btn-primary">Book Now</a>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}
