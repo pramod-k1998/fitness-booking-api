@@ -22,14 +22,35 @@ This is a full-stack web application that allows users to:
 ## 📂 Directory Structure
 
 fitness_booking/
-├── studio/ # Main Django app
-│ ├── models.py # FitnessClass, Booking models
-│ ├── serializers.py # DRF serializers (still used by API + tests)
-│ ├── forms.py # Django forms (used by HTML UI)
-│ ├── views.py # UI views
-│ ├── urls.py # HTML routes (/classes/, /book/, /bookings/)
-│ ├── templates/studio/ # Bootstrap-based HTML templates
-├── fitness_booking/urls.py # Main project URLs
+│
+├── manage.py
+├── fitness_booking/               ← Main project config folder
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py                    ← Includes app routes
+│   ├── wsgi.py
+│   └── asgi.py
+│
+├── studio/                       
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── views.py                  ← HTML views
+│   ├── api_views.py              ← DRF views (POST, GET API)
+│   ├── serializers.py            ← DRF serializers
+│   ├── tests.py                  ← Updated test cases
+│   ├── urls.py                   ← Includes both HTML & API routes
+│   ├── templates/
+│   │   └── studio/
+│   │       ├── class_list.html
+│   │       ├── book_form.html
+│   │       └── my_bookings.html
+│   └── forms.py                  ← BookingForm (used in HTML)
+│
+├── db.sqlite3                   
+└── requirements.txt              
+
 
 ## 🚀 How to Run the Project
 
@@ -47,7 +68,7 @@ pip install -r requirements.txt
 
 4. **Apply migrations and load sample data**  
 python manage.py migrate
-python manage.py loaddata sample_data.json
+python manage.py loaddata fixtures/sample_data.json
 
 5. **Run the server**  
 python manage.py runserver
@@ -60,11 +81,11 @@ python manage.py runserver
 | `/bookings/` | View bookings by email    |
 
 📦 REST API Endpoints
-| Method | Endpoint                                | Description              |
-| ------ | --------------------------------------- | ------------------------ |
-| GET    | `/api/classes/`                         | List all classes         |
-| POST   | `/api/book/`                            | Book a class via API     |
-| GET    | `/api/bookings/?email=user@example.com` | Filter bookings by email |
+| Method | Endpoint                                   | Description              |
+| ------ | ------------------------------------------ | ------------------------ |
+| GET    | `/api/classes-list/`                       | List all classes         |
+| POST   | `/api/book-class/`                         | Book a class via API     |
+| GET    | `/api/my-bookings/?email=user@example.com` | Filter bookings by email |
 
 
 🧪 Running Unit Tests

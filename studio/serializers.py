@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from .models import Fitness,Booking
 from django.utils.timezone import localtime
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 import pytz
 
 class FitnessClassSerializer(serializers.ModelSerializer):
@@ -66,3 +69,20 @@ class BookingSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("No slots left for this class.")
         
         return data
+
+class BookingAPI(APIView):
+    """
+    POST /api/book/
+
+    Creates a new booking for a fitness class if:
+    - The class exists
+    - The class has available slots
+    - The user hasn't already booked the class
+    """
+    def post(self, request):
+        """Handles POST request to book a class."""
+        serializer = BookingSerializer(data=request.data)
+        if serializer.is_valid():
+            booking = serializer.save()
+            return Response(BookingSerializer(booking).data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
