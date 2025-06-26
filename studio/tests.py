@@ -5,6 +5,13 @@ from .models import Fitness, Booking
 
 # Create your tests here.
 class BookingAPITestCase(TestCase):
+    """
+    Unit tests for Booking API:
+    - Booking success
+    - Overbooking
+    - Duplicate prevention
+    - Class listing and filtering
+    """
     def setUp(self):
         self.client = APIClient()
         self.fitness = Fitness.objects.create(

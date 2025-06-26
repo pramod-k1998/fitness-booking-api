@@ -18,5 +18,15 @@
       "instructor": "Alex",
       "available_slots": 15
     }
+  },
+  {
+    "model": "studio.fitness",
+    "pk": 3,
+    "fields": {
+      "name": "HIIT",
+      "datetime": "2025-06-26T09:00:00Z",
+      "instructor": "Arun",
+      "available_slots": 5
+    }
   }
 ]

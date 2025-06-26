@@ -7,6 +7,10 @@ import pytz
 
 # Create your views here.
 def class_list(request):
+    """
+    Displays a list of all available fitness classes.
+    Converts datetime to IST for user-friendly display.
+    """
     classes = Fitness.objects.all()
     for cls in classes:
         cls.datetime_ist = localtime(cls.datetime, pytz.timezone("Asia/Kolkata")).strftime("%Y-%m-%d %H:%M")
@@ -14,6 +18,14 @@ def class_list(request):
 
 
 def book_class(request):
+    """
+    Renders a booking form and handles submission.
+
+    - Validates form fields
+    - Prevents duplicate bookings
+    - Checks for available slots
+    - Shows feedback messages
+    """
     if request.method == "POST":
         form = BookingForm(request.POST)
         if form.is_valid():
@@ -41,6 +53,10 @@ def book_class(request):
 
 
 def my_bookings(request):
+    """
+    Allows a user to search for their bookings by email.
+    Displays all bookings made with that email.
+    """
     bookings = []
     email = request.GET.get("email")
     if email:
